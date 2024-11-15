@@ -25,7 +25,6 @@ const logout = async () => {
 
       <nav v-if="isAuthenticated">
         <RouterLink to="/dashboard">Dashboard</RouterLink>
-        <RouterLink to="/auth">Auth</RouterLink>
         <RouterLink to="/transactions">Transactions</RouterLink>
         <button @click="logout">Logout</button>
       </nav>

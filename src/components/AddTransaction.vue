@@ -1,23 +1,24 @@
 <script setup>
 import { ref } from 'vue';
 import { getDatabase, ref as dbRef, push } from 'firebase/database';
-import { auth } from '../firebase';
+import { auth } from '@/firebase';
 
 const type = ref('ingresos');
 const amount = ref(0)
 const db = getDatabase();
 
 const addTransaction = async() => {
-    const user = auth.currentUser;
+    const user = auth.currentUser
     if (user && amount.value != null) {
-        const transactionsRef = dbRef(db, `transactions`);
+        const transactionsRef = dbRef(db, `transactions/${user.uid}`);
     
 
     const newTransaction = {
         type: type.value,
         amount: amount.value,
         date: new Date().toISOString().slice(0, 10),
-        userId: user.uid
+        userId: user.uid,
+        time: new Date().toLocaleTimeString(0, 8) 
     }
 
         await push(transactionsRef, newTransaction)
